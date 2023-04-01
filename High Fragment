@@ -1,0 +1,119 @@
+# data transformation
+library(readr)
+BL21_Neg_High_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/BL21/Rep ",rep,"/BL21_Neg_High Frag_0",rep,".txt"),skip =1)
+  BL21_Neg_High_Frag[[rep]]<-data[,2:3]
+  BL21_Neg_High_Frag[[rep]]<-data.frame(BL21_Neg_High_Frag[[rep]])
+  colnames(BL21_Neg_High_Frag[[rep]])<-c("Thomsons","Counts")
+  BL21_Neg_High_Frag[[rep]]<-subset(BL21_Neg_High_Frag[[rep]], Counts>=1)
+}
+
+C41_Neg_High_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/C41/Rep ",rep,"/C41_Neg_High Frag_0",rep,".txt"),skip =1)
+  C41_Neg_High_Frag[[rep]]<-data[,2:3]
+  C41_Neg_High_Frag[[rep]]<-data.frame(C41_Neg_High_Frag[[rep]])
+  colnames(C41_Neg_High_Frag[[rep]])<-c("Thomsons","Counts")
+  C41_Neg_High_Frag[[rep]]<-subset(C41_Neg_High_Frag[[rep]], Counts>=1)
+
+}
+
+CSH_Neg_High_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/CSH/Rep ",rep,"/CSH_Neg_High Frag_0",rep,".txt"),skip =1)
+  CSH_Neg_High_Frag[[rep]]<-data[,2:3]
+  CSH_Neg_High_Frag[[rep]]<-data.frame(CSH_Neg_High_Frag[[rep]])
+  colnames(CSH_Neg_High_Frag[[rep]])<-c("Thomsons","Counts")
+  CSH_Neg_High_Frag[[rep]]<-subset(CSH_Neg_High_Frag[[rep]], Counts>=1)
+
+}
+
+DH5_Neg_High_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/DH5/Rep ",rep,"/DH5_Neg_High Frag_0",rep,".txt"),skip =1)
+  DH5_Neg_High_Frag[[rep]]<-data[,2:3]
+  DH5_Neg_High_Frag[[rep]]<-data.frame(DH5_Neg_High_Frag[[rep]])
+  colnames(DH5_Neg_High_Frag[[rep]])<-c("Thomsons","Counts")
+  DH5_Neg_High_Frag[[rep]]<-subset(DH5_Neg_High_Frag[[rep]], Counts>=1)
+  
+}
+
+DH10B_Neg_High_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/DH10B/Rep ",rep,"/DH10B_Neg_High Frag_0",rep,".txt"),skip =1)
+  DH10B_Neg_High_Frag[[rep]]<-data[,2:3]
+  DH10B_Neg_High_Frag[[rep]]<-data.frame(DH10B_Neg_High_Frag[[rep]])
+  colnames(DH10B_Neg_High_Frag[[rep]])<-c("Thomsons","Counts")
+  DH10B_Neg_High_Frag[[rep]]<-subset(DH10B_Neg_High_Frag[[rep]], Counts>=1)
+  
+}
+
+K12_Neg_High_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/K12/Rep ",rep,"/K12_Neg_High Frag_0",rep,".txt"),skip =1)
+  K12_Neg_High_Frag[[rep]]<-data[,2:3]
+  K12_Neg_High_Frag[[rep]]<-data.frame(K12_Neg_High_Frag[[rep]])
+  colnames(K12_Neg_High_Frag[[rep]])<-c("Thomsons","Counts")
+  K12_Neg_High_Frag[[rep]]<-subset(K12_Neg_High_Frag[[rep]], Counts>=1)
+  
+}
+
+S17_Neg_High_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/S17/Rep ",rep,"/S17_Neg_High Frag_0",rep,".txt"),skip =1)
+  S17_Neg_High_Frag[[rep]]<-data[,2:3]
+  S17_Neg_High_Frag[[rep]]<-data.frame(S17_Neg_High_Frag[[rep]])
+  colnames(S17_Neg_High_Frag[[rep]])<-c("Thomsons","Counts")
+  S17_Neg_High_Frag[[rep]]<-subset(S17_Neg_High_Frag[[rep]], Counts>=1)
+  
+}
+
+
+##### start analysis#####
+#check the length of all mass
+m1<-NULL
+m2<-NULL
+m3<-NULL
+m4<-NULL
+m5<-NULL
+m6<-NULL
+m7<-NULL
+
+for (rep in 1:8) {
+  m1<-c(m1,BL21_Neg_High_Frag[[rep]]$Thomsons)
+  m2<-c(m2,C41_Neg_High_Frag[[rep]]$Thomsons)
+  m3<-c(m3,CSH_Neg_High_Frag[[rep]]$Thomsons)
+  m4<-c(m4,DH10B_Neg_High_Frag[[rep]]$Thomsons)
+  m5<-c(m5,DH5_Neg_High_Frag[[rep]]$Thomsons)
+  m6<-c(m6,K12_Neg_High_Frag[[rep]]$Thomsons)
+  m7<-c(m7,S17_Neg_High_Frag[[rep]]$Thomsons)
+}
+Thom<-sort(unique(c(m1,m2,m3,m4,m5,m6,m7)))
+
+#Combine 7 together
+Neg_Hig<-list(BL21=BL21_Neg_High_Frag,
+              C41=C41_Neg_High_Frag,
+              CSH=CSH_Neg_High_Frag,
+              DH10B=DH10B_Neg_High_Frag,
+              DH5=DH5_Neg_High_Frag,
+              K12=K12_Neg_High_Frag,
+              S17=S17_Neg_High_Frag)
+
+#Generate the matrix for PCA 
+High_frag<-matrix(0,nrow = 7*8,ncol = length(Thom))
+for (org in 1:7) {
+  for (rep in 1:8) {
+    for (m in 1:length(Thom)) {
+      if(Thom[m] %in% Neg_Hig[[org]][[rep]]$Thomsons){
+        High_frag[rep+(org-1)*8,m]<-sum(Neg_Hig[[org]][[rep]]$Counts[which(Neg_Hig[[org]][[rep]]$Thomsons==Thom[m])]/max(Neg_Hig[[org]][[rep]]$Counts)) #convert to relative
+      }
+    }
+  }
+}
+
+name<-c("BL21","C41","CSH","DH10B","DH5","K12","S17")
+colnames(High_frag)<-paste0("High_",Thom)
+row.names(High_frag)<-paste0(rep(name, each=8),"_rep",rep(c(1:8),7))
+
+save(High_frag, file = "Neg_High.RData")
