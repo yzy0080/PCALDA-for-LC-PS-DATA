@@ -1,0 +1,267 @@
+# data transformation
+library(readr)
+BL21_Neg_Low_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/BL21/Rep ",rep,"/BL21_Neg_Low Frag_0",rep,".txt"),skip =5)
+  BL21_Neg_Low_Frag[[rep]]<-data.frame(data)
+}
+
+C41_Neg_Low_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/C41/Rep ",rep,"/C41_Neg_Low Frag_0",rep,".txt"),skip =5)
+  C41_Neg_Low_Frag[[rep]]<-data.frame(data)
+}
+
+CSH_Neg_Low_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/CSH/Rep ",rep,"/CSH_Neg_Low Frag_0",rep,".txt"),skip =5)
+  CSH_Neg_Low_Frag[[rep]]<-data.frame(data)
+}
+
+DH5_Neg_Low_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/DH5/Rep ",rep,"/DH5_Neg_Low Frag_0",rep,".txt"),skip =5)
+  DH5_Neg_Low_Frag[[rep]]<-data.frame(data)
+}
+
+DH10B_Neg_Low_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/DH10B/Rep ",rep,"/DH10B_Neg_Low Frag_0",rep,".txt"),skip =5)
+  DH10B_Neg_Low_Frag[[rep]]<-data.frame(data)
+}
+
+K12_Neg_Low_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/K12/Rep ",rep,"/K12_Neg_Low Frag_0",rep,".txt"),skip =5)
+  K12_Neg_Low_Frag[[rep]]<-data.frame(data)
+}
+
+S17_Neg_Low_Frag<-list()
+for (rep in 1:8) {
+  data<-read_table(paste0("Negative/S17/Rep ",rep,"/S17_Neg_Low Frag_0",rep,".txt"),skip =5)
+  S17_Neg_Low_Frag[[rep]]<-data.frame(data)
+}
+
+
+###Mass vs. Abund###
+
+#BL21
+m1<-NULL
+for (rep in 1:8) {
+  m1<-c(m1,BL21_Neg_Low_Frag[[rep]]$Mass)
+}
+mass.BL21<-sort(unique(m1))
+mass.BL21.abund<-matrix(0,nrow=8,ncol=length(mass.BL21))
+for (rep in 1:8) {
+  for (m in 1:length(mass.BL21)) {
+    if(mass.BL21[m] %in% BL21_Neg_Low_Frag[[rep]]$Mass)
+      mass.BL21.abund[rep,m]<-sum(BL21_Neg_Low_Frag[[rep]]$Abundance[which(BL21_Neg_Low_Frag[[rep]]$Mass==mass.BL21[m])])
+  }
+}
+colnames(mass.BL21.abund)<-mass.BL21 #addd the colname
+
+
+
+#C41
+m2<-NULL
+for (rep in 1:8) {
+  m2<-c(m2,C41_Neg_Low_Frag[[rep]]$Mass)
+}
+mass.C41<-sort(unique(m2))
+mass.C41.abund<-matrix(0,nrow=8,ncol=length(mass.C41))
+for (rep in 1:8) {
+  for (m in 1:length(mass.C41)) {
+    if(mass.C41[m] %in% C41_Neg_Low_Frag[[rep]]$Mass)
+      mass.C41.abund[rep,m]<-sum(C41_Neg_Low_Frag[[rep]]$Abundance[which(C41_Neg_Low_Frag[[rep]]$Mass==mass.C41[m])])
+  }
+}
+colnames(mass.C41.abund)<-mass.C41 #addd the colname
+
+
+
+#CSH
+m3<-NULL
+for (rep in 1:8) {
+  m3<-c(m3,CSH_Neg_Low_Frag[[rep]]$Mass)
+}
+mass.CSH<-sort(unique(m3))
+mass.CSH.abund<-matrix(0,nrow=8,ncol=length(mass.CSH))
+for (rep in 1:8) {
+  for (m in 1:length(mass.CSH)) {
+    if(mass.CSH[m] %in% CSH_Neg_Low_Frag[[rep]]$Mass)
+      mass.CSH.abund[rep,m]<-sum(CSH_Neg_Low_Frag[[rep]]$Abundance[which(CSH_Neg_Low_Frag[[rep]]$Mass==mass.CSH[m])])
+  }
+}
+colnames(mass.CSH.abund)<-mass.CSH #addd the colname
+
+
+#DH5
+m4<-NULL
+for (rep in 1:8) {
+  m4<-c(m4,DH5_Neg_Low_Frag[[rep]]$Mass)
+}
+mass.DH5<-sort(unique(m4))
+mass.DH5.abund<-matrix(0,nrow=8,ncol=length(mass.DH5))
+for (rep in 1:8) {
+  for (m in 1:length(mass.DH5)) {
+    if(mass.DH5[m] %in% DH5_Neg_Low_Frag[[rep]]$Mass)
+      mass.DH5.abund[rep,m]<-sum(DH5_Neg_Low_Frag[[rep]]$Abundance[which(DH5_Neg_Low_Frag[[rep]]$Mass==mass.DH5[m])])
+  }
+}
+colnames(mass.DH5.abund)<-mass.DH5 #addd the colname
+
+
+
+#DH10B
+m5<-NULL
+for (rep in 1:8) {
+  m5<-c(m5,DH10B_Neg_Low_Frag[[rep]]$Mass)
+}
+mass.DH10B<-sort(unique(m5))
+mass.DH10B.abund<-matrix(0,nrow=8,ncol=length(mass.DH10B))
+for (rep in 1:8) {
+  for (m in 1:length(mass.DH10B)) {
+    if(mass.DH10B[m] %in% DH10B_Neg_Low_Frag[[rep]]$Mass)
+      mass.DH10B.abund[rep,m]<-sum(DH10B_Neg_Low_Frag[[rep]]$Abundance[which(DH10B_Neg_Low_Frag[[rep]]$Mass==mass.DH10B[m])])
+  }
+}
+colnames(mass.DH10B.abund)<-mass.DH10B #addd the colname
+
+
+
+#K12
+m6<-NULL
+for (rep in 1:8) {
+  m6<-c(m6,K12_Neg_Low_Frag[[rep]]$Mass)
+}
+mass.K12<-sort(unique(m6))
+mass.K12.abund<-matrix(0,nrow=8,ncol=length(mass.K12))
+for (rep in 1:8) {
+  for (m in 1:length(mass.K12)) {
+    if(mass.K12[m] %in% K12_Neg_Low_Frag[[rep]]$Mass)
+      mass.K12.abund[rep,m]<-sum(K12_Neg_Low_Frag[[rep]]$Abundance[which(K12_Neg_Low_Frag[[rep]]$Mass==mass.K12[m])])
+  }
+}
+colnames(mass.K12.abund)<-mass.K12 #addd the colname
+
+
+#S17
+m7<-NULL
+for (rep in 1:8) {
+  m7<-c(m7,S17_Neg_Low_Frag[[rep]]$Mass)
+}
+mass.S17<-sort(unique(m7))
+mass.S17.abund<-matrix(0,nrow=8,ncol=length(mass.S17))
+for (rep in 1:8) {
+  for (m in 1:length(mass.S17)) {
+    if(mass.S17[m] %in% S17_Neg_Low_Frag[[rep]]$Mass)
+      mass.S17.abund[rep,m]<-sum(S17_Neg_Low_Frag[[rep]]$Abundance[which(S17_Neg_Low_Frag[[rep]]$Mass==mass.S17[m])])
+  }
+}
+colnames(mass.S17.abund)<-mass.S17 #addd the colname
+
+
+mass.7.abund<-list(BL21=mass.BL21.abund,C41=mass.C41.abund,CSH=mass.CSH.abund,DH5=mass.DH5.abund,DH10B=mass.DH10B.abund,K12=mass.K12.abund,S17=mass.S17.abund )
+save(mass.7.abund, file="MassAbund_Neg.RData")
+
+###find peaks of Mass###
+library(pracma)
+npeak=100
+#peak.mass.BL21<-matrix(0,nrow=8,ncol = npeak)
+peak.mass.BL21<-NULL
+peak.mass.C41<-NULL
+peak.mass.CSH<-NULL
+peak.mass.DH5<-NULL
+peak.mass.DH10B<-NULL
+peak.mass.K12<-NULL
+peak.mass.S17<-NULL
+
+
+for (rep in 1:8) {
+  peak.mass.BL21<-c(peak.mass.BL21,sort(findpeaks(mass.BL21.abund[rep,], npeaks=npeak,  sortstr=TRUE)[,2]))
+  peak.mass.C41<-c(peak.mass.C41,sort(findpeaks(mass.C41.abund[rep,], npeaks=npeak,  sortstr=TRUE)[,2]))
+  peak.mass.CSH<-c(peak.mass.CSH,sort(findpeaks(mass.CSH.abund[rep,], npeaks=npeak,  sortstr=TRUE)[,2]))
+  peak.mass.DH5<-c(peak.mass.DH5,sort(findpeaks(mass.DH5.abund[rep,], npeaks=npeak,  sortstr=TRUE)[,2]))
+  peak.mass.DH10B<-c(peak.mass.DH10B,sort(findpeaks(mass.DH10B.abund[rep,], npeaks=npeak,  sortstr=TRUE)[,2]))
+  peak.mass.K12<-c(peak.mass.K12,sort(findpeaks(mass.K12.abund[rep,], npeaks=npeak,  sortstr=TRUE)[,2]))
+  peak.mass.S17<-c(peak.mass.S17,sort(findpeaks(mass.S17.abund[rep,], npeaks=npeak,  sortstr=TRUE)[,2]))
+}
+
+
+peak.mass.BL21<-mass.BL21[peak.mass.BL21]
+peak.mass.C41<-mass.C41[peak.mass.C41]
+peak.mass.CSH<-mass.CSH[peak.mass.CSH]
+peak.mass.DH5<-mass.DH5[peak.mass.DH5]
+peak.mass.DH10B<-mass.DH10B[peak.mass.DH10B]
+peak.mass.K12<-mass.K12[peak.mass.K12]
+peak.mass.S17<-mass.S17[peak.mass.S17]
+
+
+peak.mass<-table(c(peak.mass.BL21,peak.mass.C41,peak.mass.CSH,peak.mass.DH5,peak.mass.DH10B,peak.mass.K12,peak.mass.S17))
+peak.mass<-as.data.frame(sort(peak.mass, decreasing = TRUE))
+
+
+
+###fix select mass, Drift vs. Abund###
+mass<-sort(as.numeric(as.vector(sort(peak.mass$Var1[which(peak.mass$Freq>3)])))) #remove the spike which frequence < 4
+
+
+# 308 mass value for 7 strains and each 8 replicate
+DT.abund<-list()
+for (m in 1:length(mass)) {
+  DT.abund[[m]]<-list()
+  DT.abund[[m]]$BL21<-list()
+  DT.abund[[m]]$C41<-list()
+  DT.abund[[m]]$CSH<-list()
+  DT.abund[[m]]$DH5<-list()
+  DT.abund[[m]]$DH10B<-list()
+  DT.abund[[m]]$K12<-list()
+  DT.abund[[m]]$S17<-list()
+  
+  for (rep in 1:8) {
+    DT.abund[[m]]$BL21[[rep]]<-BL21_Neg_Low_Frag[[rep]][which(BL21_Neg_Low_Frag[[rep]]$Mass==mass[m]),c(2,3)]
+    DT.abund[[m]]$C41[[rep]]<-C41_Neg_Low_Frag[[rep]][which(C41_Neg_Low_Frag[[rep]]$Mass==mass[m]),c(2,3)]
+    DT.abund[[m]]$CSH[[rep]]<-CSH_Neg_Low_Frag[[rep]][which(CSH_Neg_Low_Frag[[rep]]$Mass==mass[m]),c(2,3)]
+    DT.abund[[m]]$DH5[[rep]]<-DH5_Neg_Low_Frag[[rep]][which(DH5_Neg_Low_Frag[[rep]]$Mass==mass[m]),c(2,3)]
+    DT.abund[[m]]$DH10B[[rep]]<-DH10B_Neg_Low_Frag[[rep]][which(DH10B_Neg_Low_Frag[[rep]]$Mass==mass[m]),c(2,3)]
+    DT.abund[[m]]$K12[[rep]]<-K12_Neg_Low_Frag[[rep]][which(K12_Neg_Low_Frag[[rep]]$Mass==mass[m]),c(2,3)]
+    DT.abund[[m]]$S17[[rep]]<-S17_Neg_Low_Frag[[rep]][which(S17_Neg_Low_Frag[[rep]]$Mass==mass[m]),c(2,3)]
+    
+  }
+}
+
+
+#generate M_D
+#drift time cut off
+name<-c("BL21","C41","CSH","DH10B","DH5","K12","S17")
+
+# fix mass, for each species. remove the part which the abundance is less than 5% of max abundance
+Low_frag<-NULL
+mn.abud<-mean(unlist(DT.abund))
+#mn.abud<-1
+for (m in 1:length(mass)) {
+  DT.m1<-NULL
+  for (org in 1:7) {
+    cutoff<-max(max(unlist(DT.abund[[m]][[org]]))*0.05,0)
+    for (rep in 1:8) {
+      DT.m1<-c(DT.m1,DT.abund[[m]][[org]][[rep]]$Drift[which(DT.abund[[m]][[org]][[rep]]$Abundance>=cutoff)])
+    }
+  }
+  DT.m1<-sort(unique(DT.m1))
+  mat<-matrix(0,nrow = 7*8,ncol = length(DT.m1))
+  colnames(mat)<-c(paste0("Low_",rep(mass[m],length(DT.m1)),"_",DT.m1))
+  row.names(mat)<-paste0(rep(name, each=8),"_rep",rep(c(1:8),7))
+  for (rep in 1:8) {
+    mat[rep,na.omit(match(DT.abund[[m]][[1]][[rep]]$Drift,DT.m1))]<-(DT.abund[[m]][[1]][[rep]]$Abundance/mn.abud)[which(!is.na(match(DT.abund[[m]][[1]][[rep]]$Drift,DT.m1)))]
+    mat[rep+8,na.omit(match(DT.abund[[m]][[2]][[rep]]$Drift,DT.m1))]<-(DT.abund[[m]][[2]][[rep]]$Abundance/mn.abud)[which(!is.na(match(DT.abund[[m]][[2]][[rep]]$Drift,DT.m1)))]
+    mat[rep+16,na.omit(match(DT.abund[[m]][[3]][[rep]]$Drift,DT.m1))]<-(DT.abund[[m]][[3]][[rep]]$Abundance/mn.abud)[which(!is.na(match(DT.abund[[m]][[3]][[rep]]$Drift,DT.m1)))]
+    mat[rep+24,na.omit(match(DT.abund[[m]][[4]][[rep]]$Drift,DT.m1))]<-(DT.abund[[m]][[4]][[rep]]$Abundance/mn.abud)[which(!is.na(match(DT.abund[[m]][[4]][[rep]]$Drift,DT.m1)))]
+    mat[rep+32,na.omit(match(DT.abund[[m]][[5]][[rep]]$Drift,DT.m1))]<-(DT.abund[[m]][[5]][[rep]]$Abundance/mn.abud)[which(!is.na(match(DT.abund[[m]][[5]][[rep]]$Drift,DT.m1)))]
+    mat[rep+40,na.omit(match(DT.abund[[m]][[6]][[rep]]$Drift,DT.m1))]<-(DT.abund[[m]][[6]][[rep]]$Abundance/mn.abud)[which(!is.na(match(DT.abund[[m]][[6]][[rep]]$Drift,DT.m1)))]
+    mat[rep+48,na.omit(match(DT.abund[[m]][[7]][[rep]]$Drift,DT.m1))]<-(DT.abund[[m]][[7]][[rep]]$Abundance/mn.abud)[which(!is.na(match(DT.abund[[m]][[7]][[rep]]$Drift,DT.m1)))]
+    
+  }
+  Low_frag<-cbind(Low_frag,mat)
+} 
+
+save(Low_frag, file = "Neg_Low.RData")
